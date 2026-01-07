@@ -2648,12 +2648,12 @@ def compute_recall_clustering(all_encoding_df, all_retrieval_df, min_list_size=3
     """
     results = []
 
-    for subj in tqdm(all_retrieval_df.subj.unique()): 
-        subj_enc_df = all_encoding_df[all_encoding_df.subj==subj]
-        subj_retr_df = all_retrieval_df[all_retrieval_df.subj==subj].sort_values(by=['list', 'recall_num'])
+    for subj in tqdm(all_retrieval_df.sess_id.unique()): 
+        subj_enc_df = all_encoding_df[all_encoding_df.sess_id==subj]
+        subj_retr_df = all_retrieval_df[all_retrieval_df.sess_id==subj].sort_values(by=['list', 'recall_num'])
         subj_df = subj_retr_df.copy()
-        subj_df = subj_df[['subj', 'list', 'image_name']].groupby(['subj','list']).agg(tuple).applymap(list).reset_index()
-        recall_orders = subj_enc_df.merge(subj_retr_df, on=['subj', 'list', 'image_name']).drop_duplicates(subset=['image_name'], keep='first').groupby(['subj','list']).agg(tuple).applymap(list).image_num
+        subj_df = subj_df[['sess_id', 'list', 'image_name']].groupby(['sess_id','list']).agg(tuple).applymap(list).reset_index()
+        recall_orders = subj_enc_df.merge(subj_retr_df, on=['sess_id', 'list', 'image_name']).drop_duplicates(subset=['image_name'], keep='first').groupby(['sess_id','list']).agg(tuple).applymap(list).image_num
 
         for list_ix in subj_df.list.unique():
             list_df = subj_retr_df[subj_retr_df.list==list_ix]
