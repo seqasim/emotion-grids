@@ -59,7 +59,8 @@ from scipy.signal import correlate2d
 import matplotlib.pyplot as plt
 
 import sys
-sys.path.insert(0, "mec-cell-classification-master")
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "mec-cell-classification-master"))
 from shuffle_rate_map import shuffle_rate_map
 from fourier_transform import (fourier_transform, analyze_fourier, analyze_polar_spectrogram, 
     analyze_fourier_rings, fourier_rings_significance)
